@@ -1,0 +1,102 @@
+.navbar{
+    background-color: #ffffff;
+}
+
+.Link{
+    text-decoration: none;
+}
+
+.navbar-toggler-icon{
+    background-image: url('https://cdn0.iconfinder.com/data/icons/user-interface-150/24/List_menu_toggle-512.png');
+}
+
+.navbar-toggler-icon-nav{
+    background-image: url('https://www.clipartmax.com/png/full/36-365828_navbar-toggle-icon-menu-hamburger-png-white.png');
+}
+
+.nav-link{
+    color: rgb(0, 0, 0);
+    font-size: medium !important;
+    cursor: pointer;
+}
+
+.form-control{
+    color: rgb(0, 0, 0);
+    font-size: medium !important;
+    cursor: pointer;
+    border: solid 1px rgb(105, 105, 105) !important;
+    margin-left: 8px !important;
+}
+
+
+.btn-search{
+    color: rgb(0, 0, 0) !important;
+    font-size: medium !important;
+    cursor: pointer;
+    border: solid 1px rgb(105, 105, 105)!important;
+}
+
+.btn-search:hover{
+    background-color: #b1b1b1 !important;
+}
+
+
+.nav-link:hover{
+    color: #e10f36;
+}
+
+.btn-search{
+    border-color: #fcfcfc;
+    color: #ffffff;
+    transition: 200ms all;
+    -webkit-transition: 200ms all;
+    -moz-transition: 200ms all;
+    -ms-transition: 200ms all;
+    -o-transition: 200ms all;
+}
+
+.btn-search:hover{
+    border-color: #e10f36 !important;
+    background-color: #e10f36 !important;
+    color: #ffffff !important;
+}
+
+.logoNav{
+    max-height: 100px;
+    max-width: auto;
+}
+
+.Links{
+    text-decoration: none;
+}
+
+
+.navbar-nav{
+    margin-left: 35%;
+}
+
+@media (max-width:1000px){
+    .navbar-nav{
+        margin-left: 00%;
+    }
+    .form-control{
+        margin-left: 0px !important;
+    }
+  }
+/* 
+.nav-link_tatuador{
+    border-right: solid 1px rgb(0, 0, 0);
+}
+
+
+.nav-link_preguntas{
+    border-right: solid 1px rgb(0, 0, 0);
+} */
+
+
+
+
+
+
+
+
