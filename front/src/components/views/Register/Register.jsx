@@ -75,6 +75,7 @@ const Register = () => {
                 password: "",
                 password2: ""
             })
+            alert('Ya puedes iniciar sesión')
             navigate('/login')
 
         }
