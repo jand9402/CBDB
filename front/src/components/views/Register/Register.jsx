@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link,  } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios'
 import "./Register.css"
 import logo1 from "../../../assets/logo1.png"
@@ -9,8 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 function validate(input) {
     let errors = {}
-    if (!input.name) {
-        errors.name = "Nombre del club es requerido"
+    if (!input.club_name) {
+        errors.club_name = "Nombre del club es requerido"
     }
     else if (!input.email) {
         errors.email = "Email es requerido"
@@ -18,7 +18,7 @@ function validate(input) {
     else if (!input.password) {
         errors.password = "Contraseña es requerida"
     }
-    else if (input.password2 != input.password2) {
+    else if (input.password != input.password2) {
         errors.password2 = "Las contraseñas deben ser iguales"
     }
     return errors
@@ -26,11 +26,12 @@ function validate(input) {
 
 const Register = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     // const allTemps = useSelector((state) => state.temps)
     const [errors, setErrors] = useState({})
 
     const [input, setInput] = useState({
-        name: "",
+        club_name: "",
         email: "",
         password: "",
         password2: ""
@@ -48,20 +49,21 @@ const Register = () => {
     }
 
     function handleSubmit(e) {
-        if (errors.name || errors.email || errors.password || errors.password2 ) {
+        if (errors.name || errors.email || errors.password || errors.password2) {
             alert('Debe completar todos los campos')
         }
         else {
             e.preventDefault()
             console.log(input)
             dispatch(postUser(input))
-            alert("Usuario creado con exito")
+            alert("Ya puedes iniciar sesión")
             setInput({
-                name: "",
+                club_name: "",
                 email: "",
                 password: "",
                 password2: ""
             })
+            navigate('/login')
 
         }
     }
@@ -74,7 +76,7 @@ const Register = () => {
                 <div className='row row_form justify-content-center'>
                     <div className='login-box register-box'>
                         <img className='img_login' src="..." alt="Logo" />
-                        <form>
+                        <form >
                             <div className='container'>
                                 <div className='row'>
                                     <div className='col'>
@@ -82,9 +84,9 @@ const Register = () => {
                                             <input
                                                 id='name'
                                                 type="text"
-                                                value={input.name}
+                                                value={input.club_name}
                                                 onChange={(e) => handleChange(e)}
-                                                name='name'
+                                                name='club_name'
                                                 placeholder="Nombre del club" />
                                         </div>
                                         {errors.name && (
@@ -118,7 +120,7 @@ const Register = () => {
                                             <input
                                                 id='confirmpassword'
                                                 type="password"
-                                                value={input.confirmpassword}
+                                                value={input.password2}
                                                 onChange={(e) => handleChange(e)}
                                                 name='password2'
                                                 placeholder="Repetir Contraseña" />
@@ -150,7 +152,7 @@ const Register = () => {
                                     </div> */}
                   <br/>
 
-                                        <a className='iniciar_sesion' onSubmit={(e) => handleSubmit(e)} value="Register">
+                                        <a className='iniciar_sesion' onClick={(e) => handleSubmit(e)} value="Register">
                                             <span></span>
                                             <span></span>
                                             <span></span>
@@ -159,9 +161,7 @@ const Register = () => {
                                         </a>
                                     </div>
                                 </div>
-
                             </div>
-                            <button class="btn-create-dog">Create Dog</button>
                         </form>
                     </div>
                 </div>
