@@ -82,6 +82,27 @@ app.post("/users/register", async (req, res) => {
     
 })
 
+app.get("/emails", async (req, res) => {  
+    
+    pool.query(
+        `SELECT * FROM users`,
+            (err, results) => {
+                if(err){
+                    throw err
+                }else{
+                    let emailsList = []
+                results.rows.forEach(user=>{
+                    emailsList.push(user.email)
+                })
+                console.log(emailsList)
+                res.send(emailsList)
+                }
+                
+                
+                }
+        )
+       
+})
 app.listen(PORT, ()=>{
     console.log(`Server running on port ${PORT}`)
 })
