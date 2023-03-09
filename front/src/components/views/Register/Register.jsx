@@ -1,13 +1,15 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios'
 import "./Register.css"
 import logo1 from "../../../assets/logo1.png"
 import Swal from 'sweetalert2'
 import { postUser } from '../../../redux/actions/index'
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 function validate(input) {
+    
     let errors = {}
     if (!input.club_name) {
         errors.club_name = "Nombre del club es requerido"
@@ -18,13 +20,22 @@ function validate(input) {
     else if (!input.password) {
         errors.password = "Contraseña es requerida"
     }
-    else if (input.password != input.password2) {
+    else if (input.password !== input.password2) {
         errors.password2 = "Las contraseñas deben ser iguales"
     }
     return errors
 }
 
 const Register = () => {
+    const [detail, setDetail] = useState({})
+    const getDet = async () => {
+        const data = await axios.get(`http://localhost:4000/emails`)
+        setDetail(data.data)
+        console.log(data.data)
+    }
+    useEffect( () => {
+        getDet()
+    },[])
     const dispatch = useDispatch()
     const navigate = useNavigate()
     // const allTemps = useSelector((state) => state.temps)
@@ -51,12 +62,13 @@ const Register = () => {
     function handleSubmit(e) {
         if (errors.name || errors.email || errors.password || errors.password2) {
             alert('Debe completar todos los campos')
+        }if(detail.includes(input.email)){
+            alert('El correo ya esta registrado')
         }
         else {
             e.preventDefault()
             console.log(input)
             dispatch(postUser(input))
-            alert("Ya puedes iniciar sesión")
             setInput({
                 club_name: "",
                 email: "",
@@ -73,9 +85,12 @@ const Register = () => {
         <>
         <div className='loginfondo'>
             <div className='container'>
+               
                 <div className='row row_form justify-content-center'>
                     <div className='login-box register-box'>
                         <img className='img_login' src="..." alt="Logo" />
+                        
+                       
                         <form >
                             <div className='container'>
                                 <div className='row'>

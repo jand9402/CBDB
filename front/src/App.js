@@ -4,6 +4,7 @@ import NavbarVisit from "../src/components/views/NavbarVisit/NavbarVisit.js"
 import Login from "../src/components/views/Login"
 import Register from "../src/components/views/Register/Register"
 import Dashboard from './components/views/Dashboard/Dashboard';
+import Home from './components/views/Home/Home';
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
 	<div className="App">
 	<NavbarVisit/>
 	<Routes>
-	  <Route path="/" exact element={<Login/>}/>
+	  <Route path="/" exact element={<Home/>}/>
 	  <Route path="/login" exact element={<Login/>}/>
 	  <Route path="/register" exact element={<Register/>}/>
 	  <Route path='/dashboard' exact element={<Dashboard/>}/>

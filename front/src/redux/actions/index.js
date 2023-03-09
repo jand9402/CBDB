@@ -1,4 +1,4 @@
-
+export const GET_EMAILS = 'GET_EMAILS';
 
 
 const axios = require('axios');
@@ -10,3 +10,9 @@ export function postUser (payload){
         return response
     }
 }
+
+export const getEmails = () => (dispatch) => {
+    return fetch("http://localhost:4000/emails")
+    .then((response) => response.json())
+    .then((json) => {dispatch({ type: GET_EMAILS, payload:json})})
+};
