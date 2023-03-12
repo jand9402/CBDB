@@ -1,5 +1,4 @@
 import React, { lazy } from 'react'
-import { HomeRedirect } from './RouteUtils'
 import RouteController from './RouteController'
 const Dashboard = lazy(() => import('../components/views/Dashboard/Dashboard'))
 const Login = lazy(() => import('../components/views/Login/Login'))
@@ -10,7 +9,7 @@ const routes = [
     {
         path: "/",
         exact: true,
-        component: HomeRedirect
+        render: props => <Home {...props}/>
     },
     {
         path: "/login",

@@ -1,34 +1,38 @@
-import React, { useState } from 'react'
+import React from 'react'
 import axios from 'axios'
 import logo1 from "../../../assets/logo1.png"
 import "./Login.css"
 import { Link, useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 
 
 
 const Login = () => {
 
-    const [body, setBody] = useState({ username: '', password: '' })
+    const [body, setBody] = useState({ email: '', password: '' })
     const { push } = useNavigate()
 
-    const inputChange = ({ target }) => {
-        const { name, value } = target
+    function handleChange(e) {
         setBody({
             ...body,
-            [name]: value
+            [e.target.name]: e.target.value
         })
     }
 
-    const onSubmit = () => {
-        axios.post('http://localhost:4000/users/login', body)
-            .then(({ data }) => {
+    const handleSubmit = () => {
+        const login = async () => {
+            const data = await axios.post('http://localhost:4000/users/login', body)
+            if(data.data){
                 localStorage.setItem('auth', '"yes"')
                 push('/app')
-            })
-            .catch(({ response }) => {
-                console.log(response.data)
-            })
+            }else{
+                alert("Credenciales incorrectas")
+            }
+        }
     }
+    useEffect( () => {
+        login()
+    },[])
 
     // const [body, setBody] = useState({ username: '', password: '' })
 
@@ -68,8 +72,8 @@ return(
                     type="email"
                     label='username'
                     value={body.username}
-                    onChange={inputChange}
-                    name='username'
+                    onChange={(e) => handleChange(e)}
+                    name='email'
                     placeholder='Correo'
                     required/>
                 </div>
@@ -79,11 +83,11 @@ return(
                     type="password" 
                     label='password'
                     value={body.password}
-                    onChange={inputChange}
+                    onChange={(e) => handleChange(e)}
                     placeholder="Contraseña"
                     name='password'/>
                 </div>
-                <a className='iniciar_sesion' value="Login">
+                <a className='iniciar_sesion' onClick={handleSubmit} value="Login">
                     <span></span>
                     <span></span>
                     <span></span>

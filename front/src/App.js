@@ -27,21 +27,26 @@ import NavbarVisit from "../src/components/views/NavbarVisit/NavbarVisit.js"
 
 
 import React, { Suspense } from 'react'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { Routes, Route } from "react-router-dom";
 import { renderRoutes } from './routes/RouteUtils'
 import routes from './routes/routes'
-// import { CssBaseline } from '@material-ui/core'
+import Login from "../src/components/views/Login"
+import Register from "../src/components/views/Register/Register"
+import Dashboard from './components/views/Dashboard/Dashboard';
+import Home from './components/views/Home/Home';
 
 const App = () => {
 	return (
 		<>
 			{/* <CssBaseline /> */}
 			<NavbarVisit/>
-			<Router>
-				<Suspense fallback={<p>loading...</p>}>
-					{renderRoutes(routes)}
-				</Suspense>
-			</Router>
+			<Routes>
+				<Route path="/" exact element={<Home/>}/>
+				<Route path= "/" exact element={<Home/>}/>
+				<Route path= "/home" exact element={<Home/>}/>
+				<Route path= "/login" exact element={<Login/>}/>
+				<Route path= "/register" exact element={<Register/>}/>
+			</Routes>
 		</>
 	)
 }

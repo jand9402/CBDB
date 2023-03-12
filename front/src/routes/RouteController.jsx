@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Redirect } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const RouteController = props => {
+    const navigate = useNavigate()
     const { component: Component, isAuthenticated, ...rest } = props
 
     const [isAuth, setIsAuth] = useState(true)
@@ -20,7 +21,7 @@ const RouteController = props => {
     }
     useEffect(init, [])
 
-    return isAuth ? <Component {...rest} /> : <Redirect to='/login' />
+    return isAuth ? <Component {...rest} /> : navigate('/login')
 }
 
 export default RouteController
