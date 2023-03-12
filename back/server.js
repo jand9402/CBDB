@@ -82,6 +82,36 @@ app.post("/users/register", async (req, res) => {
     
 })
 
+app.post('/users/login', (req, res) => {
+	const { email, password } = req.body
+    pool.query(
+        `SELECT * FROM users
+        WHERE email = $1`,
+        [email],
+        (err, results) => {
+            if(err){
+                throw err
+            }
+            if(results.rows.length > 0){
+                bcrypt.compare(password, results.rows[0].password, (err, isMatch)=>{
+                    if(isMatch){
+                        res.status(200).send({
+                                        "email": results.rows[0].email,
+                                        "password": results.rows[0].password
+                                    })
+                    }else{
+                            res.status(400).send('Contraseña inconrrecta')  
+                    }
+                })
+                
+            }else{
+                res.status(400).send('Usuario inconrrecto')
+            }
+        }
+        )
+	
+})
+
 app.get("/emails", async (req, res) => {  
     
     pool.query(

@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import logo1 from "../../../assets/logo1.png"
 import "./Login.css"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 
 
 const Login = () => {
 
     const [body, setBody] = useState({ username: '', password: '' })
+    const { push } = useNavigate()
 
     const inputChange = ({ target }) => {
         const { name, value } = target
@@ -19,18 +20,39 @@ const Login = () => {
     }
 
     const onSubmit = () => {
-        console.log(body)
-        let username = {"username" : body.username};
-        axios.post('http://localhost:4000/api/0.0.1/users/login', body)
+        axios.post('http://localhost:4000/users/login', body)
             .then(({ data }) => {
-                console.log(data);
-                localStorage.setItem('User', JSON.stringify(data));
-                localStorage.setItem('auth', JSON.stringify("yes"));
+                localStorage.setItem('auth', '"yes"')
+                push('/app')
             })
             .catch(({ response }) => {
                 console.log(response.data)
             })
     }
+
+    // const [body, setBody] = useState({ username: '', password: '' })
+
+    // const inputChange = ({ target }) => {
+    //     const { name, value } = target
+    //     setBody({
+    //         ...body,
+    //         [name]: value
+    //     })
+    // }
+
+    // const onSubmit = () => {
+    //     console.log(body)
+    //     let username = {"username" : body.username};
+    //     axios.post('http://localhost:4000/api/0.0.1/users/login', body)
+    //         .then(({ data }) => {
+    //             console.log(data);
+    //             localStorage.setItem('User', JSON.stringify(data));
+    //             localStorage.setItem('auth', JSON.stringify("yes"));
+    //         })
+    //         .catch(({ response }) => {
+    //             console.log(response.data)
+    //         })
+    // }
 
 return(
     <>
