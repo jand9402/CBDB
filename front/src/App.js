@@ -34,6 +34,7 @@ import Login from "../src/components/views/Login"
 import Register from "../src/components/views/Register/Register"
 import Dashboard from './components/views/Dashboard/Dashboard';
 import Home from './components/views/Home/Home';
+import RouteController from "./routes/RouteController.jsx";
 
 const App = () => {
 	return (
@@ -46,6 +47,7 @@ const App = () => {
 				<Route path= "/home" exact element={<Home/>}/>
 				<Route path= "/login" exact element={<Login/>}/>
 				<Route path= "/register" exact element={<Register/>}/>
+				<Route path= "/dashboard" exact element={<RouteController/>}/>
 			</Routes>
 		</>
 	)

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Dashboard from '../components/views/Dashboard/Dashboard'
 
 const RouteController = props => {
     const navigate = useNavigate()
@@ -21,7 +22,7 @@ const RouteController = props => {
     }
     useEffect(init, [])
 
-    return isAuth ? <Component {...rest} /> : navigate('/login')
+    return isAuth ? <Dashboard/>  : navigate('/login')
 }
 
 export default RouteController

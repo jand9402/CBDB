@@ -4,13 +4,16 @@ import logo1 from "../../../assets/logo1.png"
 import "./Login.css"
 import { Link, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from "react-redux";
+import { login } from '../../../redux/actions/index'
 
 
 
 const Login = () => {
 
     const [body, setBody] = useState({ email: '', password: '' })
-    const { push } = useNavigate()
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     function handleChange(e) {
         setBody({
@@ -19,44 +22,20 @@ const Login = () => {
         })
     }
 
-    const handleSubmit = () => {
-        const login = async () => {
-            const data = await axios.post('http://localhost:4000/users/login', body)
-            if(data.data){
-                localStorage.setItem('auth', '"yes"')
-                push('/app')
-            }else{
-                alert("Credenciales incorrectas")
-            }
+    function handleSubmit(e) {
+        
+        
+             e.preventDefault()
+            
+            dispatch(login(body))
+            
+            console.log(body)
+            setBody({
+                email: '', password: ''
+            })
+  
         }
-    }
-    useEffect( () => {
-        login()
-    },[])
-
-    // const [body, setBody] = useState({ username: '', password: '' })
-
-    // const inputChange = ({ target }) => {
-    //     const { name, value } = target
-    //     setBody({
-    //         ...body,
-    //         [name]: value
-    //     })
-    // }
-
-    // const onSubmit = () => {
-    //     console.log(body)
-    //     let username = {"username" : body.username};
-    //     axios.post('http://localhost:4000/api/0.0.1/users/login', body)
-    //         .then(({ data }) => {
-    //             console.log(data);
-    //             localStorage.setItem('User', JSON.stringify(data));
-    //             localStorage.setItem('auth', JSON.stringify("yes"));
-    //         })
-    //         .catch(({ response }) => {
-    //             console.log(response.data)
-    //         })
-    // }
+    
 
 return(
     <>
@@ -65,13 +44,13 @@ return(
         <div className='row row_form justify-content-center'>
         <div className='login-box'>
             {/* <img className='img_login' src={logo1} alt="FindInk"/> */}
-            <form method='POST'>
+            <form method='POST' >
                 <div className='user-box'>
                     <input 
                     id='username'
                     type="email"
                     label='username'
-                    value={body.username}
+                    value={body.email}
                     onChange={(e) => handleChange(e)}
                     name='email'
                     placeholder='Correo'
@@ -87,7 +66,7 @@ return(
                     placeholder="Contraseña"
                     name='password'/>
                 </div>
-                <a className='iniciar_sesion' onClick={handleSubmit} value="Login">
+                <a className='iniciar_sesion' onClick={(e) => handleSubmit(e)}  value="Login">
                     <span></span>
                     <span></span>
                     <span></span>

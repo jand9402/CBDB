@@ -11,6 +11,18 @@ export function postUser (payload){
     }
 }
 
+export function login (payload){
+    return async function (dispatch){
+        const response = await axios.post('http://localhost:4000/users/login', payload)
+        .then(({ data }) => {
+            localStorage.setItem('auth', '"yes"')
+            
+        })
+                    return response
+                
+    }
+}
+
 export const getEmails = () => (dispatch) => {
     return fetch("http://localhost:4000/emails")
     .then((response) => response.json())
